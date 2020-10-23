@@ -83,9 +83,9 @@ resource "aviatrix_fqdn" "enable_egress" {
 ## S2C
 #########
 resource "aviatrix_transit_external_device_conn" "home2cloud" {
-  vpc_id                = module.gcp_transit_fra.vpc.vpc_id
+  vpc_id                = module.transit_azure_fra.vpc.vpc_id
   connection_name       = "DC1"
-  gw_name               = module.gcp_transit_fra.transit_gateway.gw_name
+  gw_name               = module.transit_azure_fra.transit_gateway.gw_name
   connection_type       = "bgp"
   bgp_local_as_num      = "65001"
   bgp_remote_as_num     = "65000"
@@ -97,7 +97,7 @@ resource "aviatrix_transit_external_device_conn" "home2cloud" {
 ########
 ## Deploy Clients and Servers
 ########
-/* module "gcp1" {
+module "gcp1" {
   source  = "git::https://github.com/fkhademi/terraform-gcp-instance-module.git"
   
   name    = "gcp1"
@@ -168,4 +168,3 @@ resource "aws_route53_record" "azure2" {
   ttl     = "1"
   records = [module.azure2.nic.private_ip_address]
 }
- */
