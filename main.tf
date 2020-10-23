@@ -73,10 +73,10 @@ resource "aviatrix_fqdn" "enable_egress" {
   fqdn_mode    = "black"
 
   gw_filter_tag_list {
-    gw_name        = module.gcp_spoke_fra.transit_gateway.gw_name
+    gw_name        = module.gcp_spoke_fra.spoke_gateway.gw_name
   }
   gw_filter_tag_list {
-    gw_name        = module.spoke_azure_fra.transit_gateway.gw_name
+    gw_name        = module.spoke_azure_fra.spoke_gateway.gw_name
   }
 }
 #########
