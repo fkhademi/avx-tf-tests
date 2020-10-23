@@ -137,9 +137,9 @@ module "azure1" {
 
   name          = "azure1"
   region        = var.azure_region_fra["region"]
-  rg            = split(":", module.spoke_azure_1.vnet.vpc_id)[1]
-  vnet          = module.spoke_azure_1.vnet.name
-  subnet        = data.azurerm_subnet.spoke_azure_1.id
+  rg            = split(":", module.spoke_azure_fra.vnet.vpc_id)[1]
+  vnet          = module.spoke_azure_fra.vnet.name
+  subnet        = data.azurerm_subnet.spoke_azure_fra.id
   instance_size = "Standard_D4_v2"
   ssh_key       = var.ssh_key
 }
@@ -155,9 +155,9 @@ module "azure2" {
 
   name          = "azure2"
   region        = var.azure_region_fra["region"]
-  rg            = split(":", module.spoke_azure_1.vnet.vpc_id)[1]
-  vnet          = module.spoke_azure_1.vnet.name
-  subnet        = data.azurerm_subnet.spoke_azure_1.id
+  rg            = split(":", module.spoke_azure_fra.vnet.vpc_id)[1]
+  vnet          = module.spoke_azure_fra.vnet.name
+  subnet        = data.azurerm_subnet.spoke_azure_fra.id
   instance_size = "Standard_D4_v2"
   ssh_key       = var.ssh_key
 }
