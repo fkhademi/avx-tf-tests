@@ -103,8 +103,8 @@ module "gcp1" {
   name    = "gcp1"
   region  = var.gcp_region_fra["region"]
   zone    = "a"
-  vpc     = module.gcp_spoke_1.vpc.vpc_id
-  subnet	= module.gcp_spoke_1.vpc.subnets[0].name
+  vpc     = module.gcp_spoke_fra.vpc.vpc_id
+  subnet	= module.gcp_spoke_fra.vpc.subnets[0].name
   ssh_key = var.ssh_key
 }
 resource "aws_route53_record" "gcp1" {
@@ -120,8 +120,8 @@ module "gcp2" {
   name    = "gcp2"
   region  = var.gcp_region_fra["region"]
   zone    = "b"
-  vpc     = module.gcp_spoke_1.vpc.vpc_id
-  subnet	= module.gcp_spoke_1.vpc.subnets[0].name
+  vpc     = module.gcp_spoke_fra.vpc.vpc_id
+  subnet	= module.gcp_spoke_fra.vpc.subnets[0].name
   ssh_key = var.ssh_key
 }
 resource "aws_route53_record" "gcp2" {
