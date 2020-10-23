@@ -7,7 +7,7 @@ module "gcp_transit_fra" {
   source  = "terraform-aviatrix-modules/gcp-transit/aviatrix"
   version = "2.0.0"
 
-  name          = var.gcp_region_fra["name"]
+  name          = "gcp-trans"
   cidr          = cidrsubnet(var.gcp_region_fra["cidr"], 1, 0)
   region        = var.gcp_region_fra["region"]
   account       = var.gcp_account_name
