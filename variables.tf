@@ -1,7 +1,7 @@
 variable "aviatrix_admin_account" { default = "admin" }
-variable "aviatrix_admin_password" { }
+variable "aviatrix_admin_password" {}
 variable "aviatrix_controller_ip" { default = "controller.avxlab.de" }
-variable "ssh_key" { }
+variable "ssh_key" {}
 variable "onprem_fqdn" { default = "home.dooner.de" }
 
 # AVX Cloud Accounts
@@ -10,16 +10,16 @@ variable "gcp_account_name" { default = "freyviatrix-sc" }
 variable "aws_account_name" { default = "aws-fk" }
 
 # GCP
-variable "gcp_creds" { }
+variable "gcp_creds" {}
 variable "gcp_project" { default = "freyviatrix-2020" }
 # AWS
-variable "aws_access_key" { }
-variable "aws_secret_key" { }
+variable "aws_access_key" {}
+variable "aws_secret_key" {}
 # Azure
-variable "azure_sub_id" { }
-variable "azure_app_id" { }
-variable "azure_app_key" { }
-variable "azure_dir_id" { }
+variable "azure_sub_id" {}
+variable "azure_app_id" {}
+variable "azure_app_key" {}
+variable "azure_dir_id" {}
 
 # Regions, Transits and Spokes
 variable "region1" {
