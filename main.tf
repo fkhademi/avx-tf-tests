@@ -35,12 +35,12 @@ module "transit_azure_fra" {
   source  = "terraform-aviatrix-modules/azure-transit/aviatrix"
   version = "2.0.0"
 
-  name                          = var.azure_region_fra["name"]
-  cidr                          = cidrsubnet(var.azure_region_fra["cidr"], 1, 0)
-  region                        = var.azure_region_fra["region"]
-  account                       = var.azure_account_name
-  instance_size                 = "Standard_D4_v2"
-  learned_cidrs_approval = true
+  name                  = var.azure_region_fra["name"]
+  cidr                  = cidrsubnet(var.azure_region_fra["cidr"], 1, 0)
+  region                = var.azure_region_fra["region"]
+  account               = var.azure_account_name
+  instance_size         = "Standard_D4_v2"
+  learned_cidr_approval = true
   #insane_mode   = true
 }
 module "spoke_azure_fra" {
