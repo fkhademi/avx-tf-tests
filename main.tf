@@ -40,7 +40,7 @@ module "transit_azure_fra" {
   region                        = var.azure_region_fra["region"]
   account                       = var.azure_account_name
   instance_size                 = "Standard_D4_v2"
-  enable_learned_cidrs_approval = true
+  learned_cidrs_approval = true
   #insane_mode   = true
 }
 module "spoke_azure_fra" {
