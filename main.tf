@@ -105,6 +105,7 @@ module "gcp1" {
   zone    = "a"
   vpc     = module.gcp_spoke_fra.vpc.vpc_id
   subnet	= module.gcp_spoke_fra.vpc.subnets[0].name
+  instance_size = "e2-standard-8"
   ssh_key = var.ssh_key
 }
 resource "aws_route53_record" "gcp1" {
@@ -122,6 +123,7 @@ module "gcp2" {
   zone    = "b"
   vpc     = module.gcp_spoke_fra.vpc.vpc_id
   subnet	= module.gcp_spoke_fra.vpc.subnets[0].name
+  instance_size = "e2-standard-8"
   ssh_key = var.ssh_key
 }
 resource "aws_route53_record" "gcp2" {
