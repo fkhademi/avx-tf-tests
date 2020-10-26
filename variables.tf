@@ -30,6 +30,22 @@ variable "region1" {
     "region" = "eu-central-1"
   }
 }
+variable "weur" {
+  type = map
+  default = {
+    "name"   = "aws"
+    "cidr"   = "10.11.0.0/16"
+    "region" = "eu-west-1"
+  }
+}
+variable "us" {
+  type = map
+  default = {
+    "name"   = "aws"
+    "cidr"   = "10.12.0.0/16"
+    "region" = "eu-west-1"
+  }
+}
 variable "region2" {
   type = map
   default = {
