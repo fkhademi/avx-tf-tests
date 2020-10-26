@@ -35,8 +35,8 @@ module "weur1" {
 
   name      = "weur1"
   region    = var.weur["region"]
-  vpc_id    = module.spoke_aws_1.vpc.vpc_id
-  subnet_id = module.spoke_aws_1.vpc.subnets[0].subnet_id
+  vpc_id    = module.weur-spoke_aws_1.vpc.vpc_id
+  subnet_id = module.weur-spoke_aws_1.vpc.subnets[0].subnet_id
   ssh_key   = var.ssh_key
 }
 resource "aws_route53_record" "weur1" {
@@ -62,8 +62,8 @@ module "weur2" {
 
   name      = "weur2"
   region    = var.weur["region"]
-  vpc_id    = module.spoke_aws_2.vpc.vpc_id
-  subnet_id = module.spoke_aws_2.vpc.subnets[0].subnet_id
+  vpc_id    = module.weur-spoke_aws_2.vpc.vpc_id
+  subnet_id = module.weur-spoke_aws_2.vpc.subnets[0].subnet_id
   ssh_key   = var.ssh_key
 }
 resource "aws_route53_record" "weur2" {
