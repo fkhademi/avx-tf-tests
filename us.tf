@@ -47,7 +47,7 @@ resource "aws_route53_record" "us1" {
   name    = "us1.${data.aws_route53_zone.pub.name}"
   type    = "A"
   ttl     = "1"
-  records = [module.weur1.vm.private_ip]
+  records = [module.us1.vm.private_ip]
 }
 module "us-spoke_aws_2" {
   source  = "terraform-aviatrix-modules/aws-spoke/aviatrix"
@@ -74,7 +74,7 @@ resource "aws_route53_record" "us2" {
   name    = "us2.${data.aws_route53_zone.pub.name}"
   type    = "A"
   ttl     = "1"
-  records = [module.weur2.vm.private_ip]
+  records = [module.us2.vm.private_ip]
 }
 module "us-spoke_aws_4" {
   source  = "terraform-aviatrix-modules/aws-spoke/aviatrix"
