@@ -1,13 +1,10 @@
 module "transit_firenet_2" {
-  source  = "terraform-aviatrix-modules/aws-transit-firenet/aviatrix"
+  source  = "terraform-aviatrix-modules/aws-transit/aviatrix"
   version = "2.0.0"
 
   cidr                  = cidrsubnet(var.weur["cidr"], 6, 0)
   region                = var.weur["region"]
   account               = var.aws_account_name
-  firewall_image        = "Fortinet FortiGate Next-Generation Firewall"
-  name                  = "weur"
-  learned_cidr_approval = true
   ha_gw                 = false
 }
 resource "aviatrix_transit_external_device_conn" "home2weur" {
