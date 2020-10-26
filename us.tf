@@ -131,7 +131,7 @@ module "us-spoke_aws_8" {
   transit_gw = module.transit_firenet_3.transit_gateway.gw_name
   ha_gw      = false
 }
-module "us-spoke_aws_9" {
+/* module "us-spoke_aws_9" {
   source  = "terraform-aviatrix-modules/aws-spoke/aviatrix"
   version = "2.0.0"
 
@@ -153,7 +153,7 @@ module "us-spoke_aws_10" {
   transit_gw = module.transit_firenet_3.transit_gateway.gw_name
   ha_gw      = false
 }
-/* module "us-spoke_aws_11" {
+module "us-spoke_aws_11" {
   source  = "terraform-aviatrix-modules/aws-spoke/aviatrix"
   version = "2.0.0"
 
