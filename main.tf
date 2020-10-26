@@ -17,7 +17,7 @@ module "transit-peering" {
   source  = "terraform-aviatrix-modules/mc-transit-peering/aviatrix"
   version = "1.0.0"
 
-  transit_gateways = [module.transit_firenet_1.transit_gateway.gw_name, module.transit_firenet_2.transit_gateway.gw_name, module.transit_firenet_3.transit_gateway.gw_name]
+  transit_gateways = [module.transit_firenet_1.transit_gateway.gw_name, module.transit_firenet_2.transit_gateway.gw_name]
 }
 resource "aviatrix_transit_external_device_conn" "home2cloud" {
   vpc_id             = module.transit_firenet_1.vpc.vpc_id
