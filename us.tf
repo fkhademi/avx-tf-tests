@@ -22,7 +22,7 @@ module "transit_firenet_3" {
   local_tunnel_cidr     = "169.254.71.242/30"
   remote_tunnel_cidr    = "169.254.71.241/30"
 } */
-module "us-spoke_aws_1" {
+/* module "us-spoke_aws_1" {
   source  = "terraform-aviatrix-modules/aws-spoke/aviatrix"
   version = "2.0.0"
 
@@ -131,7 +131,7 @@ module "us-spoke_aws_8" {
   transit_gw = module.transit_firenet_3.transit_gateway.gw_name
   ha_gw      = false
 }
-/* module "us-spoke_aws_9" {
+module "us-spoke_aws_9" {
   source  = "terraform-aviatrix-modules/aws-spoke/aviatrix"
   version = "2.0.0"
 
