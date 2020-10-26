@@ -43,7 +43,7 @@ variable "us" {
   default = {
     "name"   = "aws"
     "cidr"   = "10.12.0.0/16"
-    "region" = "eu-west-1"
+    "region" = "us-east-1"
   }
 }
 variable "region2" {
