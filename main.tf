@@ -1,4 +1,108 @@
-####
+module "transit_firenet_1" {
+  source  = "terraform-aviatrix-modules/aws-transit-firenet/aviatrix"
+  version = "2.0.0"
+
+  cidr            = cidrsubnet(var.region1["cidr"], 4, 0)
+  region          = var.region1["region"]
+  account         = var.aws_account_name
+  firewall_image  = "Fortinet FortiGate Next-Generation Firewall"
+  name            = "ceur"
+  learned_cidr_approval = true
+  ha_gw           = false
+}
+resource "aviatrix_transit_external_device_conn" "home2cloud" {
+  vpc_id                = module.transit_firenet_1.vpc.vpc_id
+  connection_name       = "DC1"
+  gw_name               = module.transit_firenet_1.transit_gateway.gw_name
+  connection_type       = "bgp"
+  bgp_local_as_num      = "65001"
+  bgp_remote_as_num     = "65000"
+  remote_gateway_ip     = data.dns_a_record_set.fqdn.addrs[0]
+  pre_shared_key        = "frey123frey"
+  local_tunnel_cidr     = "169.254.69.242/30"
+  remote_tunnel_cidr    = "169.254.69.241/30"
+}
+module "spoke_aws_1" {
+  source  = "terraform-aviatrix-modules/aws-spoke/aviatrix"
+  version = "2.0.0"
+
+  name          = "spoke1"
+  cidr          = cidrsubnet(var.region1["cidr"], 4, 1)
+  region        = var.region1["region"]
+  account       = var.aws_account_name
+  transit_gw    = module.transit_firenet_1.transit_gateway.gw_name
+  ha_gw         = false
+}
+module "aws1" {
+  source        = "git::https://github.com/fkhademi/terraform-aws-instance-module.git"
+
+  name		  = "aws1"
+  region	  = var.region1["region"]
+  vpc_id	  = module.spoke_aws_1.vpc.vpc_id
+  subnet_id	= module.spoke_aws_1.vpc.subnets[0].subnet_id
+  ssh_key	  = var.ssh_key
+}
+resource "aws_route53_record" "aws1" {
+  zone_id    = data.aws_route53_zone.pub.zone_id
+  name    = "aws1.${data.aws_route53_zone.pub.name}"
+  type    = "A"
+  ttl     = "1"
+  records = [module.aws1.vm.private_ip]
+}
+module "spoke_aws_2" {
+  source  = "terraform-aviatrix-modules/aws-spoke/aviatrix"
+  version = "2.0.0"
+
+  name          = "spoke2"
+  cidr          = cidrsubnet(var.region1["cidr"], 4, 2)
+  region        = var.region1["region"]
+  account       = var.aws_account_name
+  transit_gw    = module.transit_firenet_1.transit_gateway.gw_name
+  ha_gw         = false
+}
+module "aws2" {
+  source        = "git::https://github.com/fkhademi/terraform-aws-instance-module.git"
+
+  name		  = "aws2"
+  region	  = var.region1["region"]
+  vpc_id	  = module.spoke_aws_2.vpc.vpc_id
+  subnet_id	= module.spoke_aws_2.vpc.subnets[0].subnet_id
+  ssh_key	  = var.ssh_key
+}
+resource "aws_route53_record" "aws2" {
+  zone_id    = data.aws_route53_zone.pub.zone_id
+  name    = "aws2.${data.aws_route53_zone.pub.name}"
+  type    = "A"
+  ttl     = "1"
+  records = [module.aws2.vm.private_ip]
+}
+module "gcp_spoke_1" {
+  source        = "git::https://github.com/fkhademi/terraform-aviatrix-gcp-spoke.git"
+  name          = "spoke3"
+  account       = var.gcp_account_name
+  cidr          = cidrsubnet(var.gcp_region_fra["cidr"], 4, 1)
+  region        = var.gcp_region_fra["region"]
+  transit_gw    = module.transit_firenet_1.transit_gateway.gw_name
+  ha_gw         = "false"
+}
+module "gcp1" {
+  source = "git::https://github.com/fkhademi/terraform-gcp-instance-module.git"
+
+  name          = "gcp1"
+  region        = var.gcp_region_fra["region"]
+  vpc           = module.gcp_spoke_1.vpc.vpc_id
+  subnet        = module.gcp_spoke_1.vpc.subnets[0].name
+  ssh_key       = var.ssh_key
+}
+resource "aws_route53_record" "gcp1" {
+  zone_id = data.aws_route53_zone.pub.zone_id
+  name    = "gcp1.${data.aws_route53_zone.pub.name}"
+  type    = "A"
+  ttl     = "1"
+  records = [module.gcp1.vm.network_interface[0].network_ip]
+}
+
+/* ####
 ## LH POC
 ####
 # Deploy Aviatrix Transit and Spoke VPCs in GCP region Frankfurt
@@ -170,4 +274,4 @@ resource "aws_route53_record" "azure2" {
   type    = "A"
   ttl     = "1"
   records = [module.azure2.nic.private_ip_address]
-}
+} */
