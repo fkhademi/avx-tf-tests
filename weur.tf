@@ -150,7 +150,7 @@ module "weur-spoke_aws_10" {
   transit_gw = module.transit_firenet_2.transit_gateway.gw_name
   ha_gw      = false
 }
-module "weur-spoke_aws_11" {
+/* module "weur-spoke_aws_11" {
   source  = "terraform-aviatrix-modules/aws-spoke/aviatrix"
   version = "2.0.0"
 
@@ -182,4 +182,4 @@ module "weur-spoke_aws_13" {
   account    = var.aws_account_name
   transit_gw = module.transit_firenet_2.transit_gateway.gw_name
   ha_gw      = false
-}
+} */
