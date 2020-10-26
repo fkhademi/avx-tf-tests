@@ -10,9 +10,9 @@ module "transit_firenet_2" {
   learned_cidr_approval = true
   ha_gw                 = false
 }
-resource "aviatrix_transit_external_device_conn" "home2cloud" {
+resource "aviatrix_transit_external_device_conn" "home2weur" {
   vpc_id             = module.transit_firenet_2.vpc.vpc_id
-  connection_name    = "DC1"
+  connection_name    = "DC2weur"
   gw_name            = module.transit_firenet_2.transit_gateway.gw_name
   connection_type    = "bgp"
   bgp_local_as_num   = "65002"
