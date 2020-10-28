@@ -116,12 +116,12 @@ resource "aws_route53_record" "gcp1" {
   ttl     = "1"
   records = [module.gcp1.vm.network_interface[0].network_ip]
 }
-module "gcp2" {
+/* module "gcp2" {
   source = "git::https://github.com/fkhademi/terraform-gcp-instance-module.git"
 
   name          = "gcp2"
   region        = var.gcp_region_fra["region"]
-  zone          = "b"
+  zone          = "a"
   vpc           = module.gcp_spoke_fra.vpc.vpc_id
   subnet        = module.gcp_spoke_fra.vpc.subnets[0].name
   instance_size = "e2-standard-8"
@@ -134,8 +134,49 @@ resource "aws_route53_record" "gcp2" {
   ttl     = "1"
   records = [module.gcp2.vm.network_interface[0].network_ip]
 }
+ */
+
+module "gcp3" {
+  source = "git::https://github.com/fkhademi/terraform-gcp-instance-module.git"
+
+  name          = "gcp3"
+  region        = var.gcp_region_fra["region"]
+  zone          = "b"
+  vpc           = module.gcp_spoke_fra.vpc.vpc_id
+  subnet        = module.gcp_spoke_fra.vpc.subnets[0].name
+  instance_size = "e2-standard-8"
+  ssh_key       = var.ssh_key
+}
+resource "aws_route53_record" "gcp3" {
+  zone_id = data.aws_route53_zone.pub.zone_id
+  name    = "gcp3.${data.aws_route53_zone.pub.name}"
+  type    = "A"
+  ttl     = "1"
+  records = [module.gcp3.vm.network_interface[0].network_ip]
+}
+module "gcp4" {
+  source = "git::https://github.com/fkhademi/terraform-gcp-instance-module.git"
+
+  name          = "gcp4"
+  region        = var.gcp_region_fra["region"]
+  zone          = "b"
+  vpc           = module.gcp_spoke_fra.vpc.vpc_id
+  subnet        = module.gcp_spoke_fra.vpc.subnets[0].name
+  instance_size = "e2-standard-8"
+  ssh_key       = var.ssh_key
+}
+resource "aws_route53_record" "gcp4" {
+  zone_id = data.aws_route53_zone.pub.zone_id
+  name    = "gcp4.${data.aws_route53_zone.pub.name}"
+  type    = "A"
+  ttl     = "1"
+  records = [module.gcp4.vm.network_interface[0].network_ip]
+}
+
+
+
 ## Azure Clients
-/*module "azure1" {
+module "azure1" {
   source = "git::https://github.com/fkhademi/terraform-azure-instance-module.git"
 
   name          = "azure1"
@@ -170,4 +211,40 @@ resource "aws_route53_record" "azure2" {
   type    = "A"
   ttl     = "1"
   records = [module.azure2.nic.private_ip_address]
-}*/
+}
+module "azure3" {
+  source = "git::https://github.com/fkhademi/terraform-azure-instance-module.git"
+
+  name          = "azure3"
+  region        = var.azure_region_fra["region"]
+  rg            = split(":", module.spoke_azure_fra.vnet.vpc_id)[1]
+  vnet          = module.spoke_azure_fra.vnet.name
+  subnet        = data.azurerm_subnet.spoke_azure_fra.id
+  instance_size = "Standard_D4_v2"
+  ssh_key       = var.ssh_key
+}
+resource "aws_route53_record" "azure3" {
+  zone_id = data.aws_route53_zone.pub.zone_id
+  name    = "azure3.${data.aws_route53_zone.pub.name}"
+  type    = "A"
+  ttl     = "1"
+  records = [module.azure3.nic.private_ip_address]
+}
+module "azure4" {
+  source = "git::https://github.com/fkhademi/terraform-azure-instance-module.git"
+
+  name          = "azure4"
+  region        = var.azure_region_fra["region"]
+  rg            = split(":", module.spoke_azure_fra.vnet.vpc_id)[1]
+  vnet          = module.spoke_azure_fra.vnet.name
+  subnet        = data.azurerm_subnet.spoke_azure_fra.id
+  instance_size = "Standard_D4_v2"
+  ssh_key       = var.ssh_key
+}
+resource "aws_route53_record" "azure4" {
+  zone_id = data.aws_route53_zone.pub.zone_id
+  name    = "azure4.${data.aws_route53_zone.pub.name}"
+  type    = "A"
+  ttl     = "1"
+  records = [module.azure4.nic.private_ip_address]
+}
