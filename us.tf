@@ -38,8 +38,8 @@ module "us1" {
 
   name      = "us1"
   region    = var.us["region"]
-  vpc_id    = module.spoke_aws_1.vpc.vpc_id
-  subnet_id = module.spoke_aws_1.vpc.subnets[0].subnet_id
+  vpc_id    = module.us-spoke_aws_1.vpc.vpc_id
+  subnet_id = module.us-spoke_aws_1.vpc.subnets[0].subnet_id
   ssh_key   = var.ssh_key
 }
 resource "aws_route53_record" "us1" {
@@ -65,8 +65,8 @@ module "us2" {
 
   name      = "us2"
   region    = var.us["region"]
-  vpc_id    = module.spoke_aws_2.vpc.vpc_id
-  subnet_id = module.spoke_aws_2.vpc.subnets[0].subnet_id
+  vpc_id    = module.us-spoke_aws_2.vpc.vpc_id
+  subnet_id = module.us-spoke_aws_2.vpc.subnets[0].subnet_id
   ssh_key   = var.ssh_key
 }
 resource "aws_route53_record" "us2" {
