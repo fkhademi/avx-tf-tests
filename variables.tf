@@ -1,6 +1,6 @@
 variable "aviatrix_admin_account" { default = "admin" }
 variable "aviatrix_admin_password" {}
-variable "aviatrix_controller_ip" { default = "controller.avxlab.de" }
+variable "aviatrix_controller_ip" { default = "18.157.169.245" }
 variable "ssh_key" {}
 variable "onprem_fqdn" { default = "home.dooner.de" }
 
