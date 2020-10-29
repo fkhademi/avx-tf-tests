@@ -68,7 +68,7 @@ module "transit-peering" {
 # Enable Egress
 ########
 # Create an Aviatrix Gateway FQDN filter
-resource "aviatrix_fqdn" "enable_egress" {
+/* resource "aviatrix_fqdn" "enable_egress" {
   fqdn_tag     = "allow-egress"
   fqdn_enabled = true
   fqdn_mode    = "black"
@@ -80,7 +80,7 @@ resource "aviatrix_fqdn" "enable_egress" {
     gw_name = module.spoke_azure_fra.spoke_gateway.gw_name
   }
 }
-#########
+ */#########
 ## S2C
 #########
 resource "aviatrix_transit_external_device_conn" "home2cloud" {
@@ -116,7 +116,7 @@ resource "aws_route53_record" "gcp1" {
   ttl     = "1"
   records = [module.gcp1.vm.network_interface[0].network_ip]
 }
-/* module "gcp2" {
+module "gcp2" {
   source = "git::https://github.com/fkhademi/terraform-gcp-instance-module.git"
 
   name          = "gcp2"
@@ -134,7 +134,6 @@ resource "aws_route53_record" "gcp2" {
   ttl     = "1"
   records = [module.gcp2.vm.network_interface[0].network_ip]
 }
- */
 
 module "gcp3" {
   source = "git::https://github.com/fkhademi/terraform-gcp-instance-module.git"
