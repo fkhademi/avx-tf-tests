@@ -32,9 +32,9 @@ module "gcp_transit_fra" {
 # Deploy Aviatrix Transit and Spoke VPCs in Azure region Frankfurt
 ####
 data "azurerm_subnet" "transit_azure_fra" {
-  name                 = module.transit_azure_fra.vnet.subnets[3].name
-  virtual_network_name = module.transit_azure_fra.vnet.name
-  resource_group_name  = split(":", module.transit_azure_fra.vnet.vpc_id)[1]
+  name                 = module.transit_azure_fra.vpc.subnets[3].name
+  virtual_network_name = module.transit_azure_fra.vpc.name
+  resource_group_name  = split(":", module.transit_azure_fra.vpc.vpc_id)[1]
 }
 module "transit_azure_fra" {
   source  = "terraform-aviatrix-modules/azure-transit/aviatrix"
