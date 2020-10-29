@@ -192,8 +192,8 @@ module "azure1" {
 
   name          = "azure1"
   region        = var.azure_region_fra["region"]
-  rg            = split(":", module.transit_azure_fra.vnet.vpc_id)[1]
-  vnet          = module.transit_azure_fra.vnet.name
+  rg            = split(":", module.transit_azure_fra.vpc.vpc_id)[1]
+  vnet          = module.transit_azure_fra.vpc.name
   subnet        = data.azurerm_subnet.transit_azure_fra.id
   #rg            = split(":", module.spoke_azure_fra.vnet.vpc_id)[1]
   #vnet          = module.spoke_azure_fra.vnet.name
@@ -213,8 +213,8 @@ module "azure2" {
 
   name          = "azure2"
   region        = var.azure_region_fra["region"]
-  rg            = split(":", module.transit_azure_fra.vnet.vpc_id)[1]
-  vnet          = module.transit_azure_fra.vnet.name
+  rg            = split(":", module.transit_azure_fra.vpc.vpc_id)[1]
+  vnet          = module.transit_azure_fra.vpc.name
   subnet        = data.azurerm_subnet.transit_azure_fra.id
   instance_size = "Standard_D4_v2"
   ssh_key       = var.ssh_key
@@ -231,8 +231,8 @@ module "azure3" {
 
   name          = "azure3"
   region        = var.azure_region_fra["region"]
-  rg            = split(":", module.transit_azure_fra.vnet.vpc_id)[1]
-  vnet          = module.transit_azure_fra.vnet.name
+  rg            = split(":", module.transit_azure_fra.vpc.vpc_id)[1]
+  vnet          = module.transit_azure_fra.vpc.name
   subnet        = data.azurerm_subnet.transit_azure_fra.id
   instance_size = "Standard_D4_v2"
   ssh_key       = var.ssh_key
@@ -249,8 +249,8 @@ module "azure4" {
 
   name          = "azure4"
   region        = var.azure_region_fra["region"]
-  rg            = split(":", module.transit_azure_fra.vnet.vpc_id)[1]
-  vnet          = module.transit_azure_fra.vnet.name
+  rg            = split(":", module.transit_azure_fra.vpc.vpc_id)[1]
+  vnet          = module.transit_azure_fra.vpc.name
   subnet        = data.azurerm_subnet.transit_azure_fra.id
   instance_size = "Standard_D4_v2"
   ssh_key       = var.ssh_key
