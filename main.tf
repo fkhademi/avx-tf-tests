@@ -41,7 +41,7 @@ data "azurerm_subnet" "transit_azure_fra1" {
   resource_group_name  = split(":", module.transit_azure_fra.vpc.vpc_id)[1]
 }
 data "azurerm_subnet" "transit_azure_fra2" {
-  name                 = module.transit_azure_fra.vpc.subnets[3].name
+  name                 = module.transit_azure_fra.vpc.subnets[2].name
   virtual_network_name = module.transit_azure_fra.vpc.name
   resource_group_name  = split(":", module.transit_azure_fra.vpc.vpc_id)[1]
 }
@@ -58,7 +58,7 @@ module "transit_azure_fra" {
   insane_mode   = true
 }
 
-/* module "spoke_azure_fra" {
+module "spoke_azure_fra" {
   source  = "terraform-aviatrix-modules/azure-spoke/aviatrix"
   version = "2.0.0"
 
@@ -76,10 +76,10 @@ data "azurerm_subnet" "spoke_azure_fra1" {
   resource_group_name  = split(":", module.spoke_azure_fra.vnet.vpc_id)[1]
 }
 data "azurerm_subnet" "spoke_azure_fra2" {
-  name                 = module.spoke_azure_fra.vnet.subnets[3].name
+  name                 = module.spoke_azure_fra.vnet.subnets[2].name
   virtual_network_name = module.spoke_azure_fra.vnet.name
   resource_group_name  = split(":", module.spoke_azure_fra.vnet.vpc_id)[1]
-} */
+}
 ###
 # Transit Peerings - Will create full mesh transit
 ###
@@ -277,7 +277,7 @@ resource "aws_route53_record" "azure4" {
   records = [module.azure4.nic.private_ip_address]
 }
 #######
-/* module "azure5" {
+module "azure5" {
   source = "git::https://github.com/fkhademi/terraform-azure-instance-module.git"
 
   name          = "azure5"
@@ -351,4 +351,4 @@ resource "aws_route53_record" "azure8" {
   type    = "A"
   ttl     = "1"
   records = [module.azure8.nic.private_ip_address]
-} */
+}
