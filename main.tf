@@ -106,14 +106,14 @@ resource "aviatrix_transit_external_device_conn" "home2cloud" {
 ########
 ## Deploy Clients and Servers
 ########
-/* module "gcp1" {
+module "gcp1" {
   source = "git::https://github.com/fkhademi/terraform-gcp-instance-module.git"
 
   name          = "gcp1"
   region        = var.gcp_region_fra["region"]
   zone          = "a"
-  vpc           = module.gcp_transit_fra.vpc.vpc_id
-  subnet        = module.gcp_transit_fra.vpc.subnets[0].name
+  vpc           = module.gcp_spoke_fra.vpc.vpc_id
+  subnet        = module.gcp_spoke_fra.vpc.subnets[0].name
   #vpc           = module.gcp_spoke_fra.vpc.vpc_id
   #subnet        = module.gcp_spoke_fra.vpc.subnets[0].name
   instance_size = "e2-standard-8"
@@ -132,8 +132,8 @@ module "gcp2" {
   name          = "gcp2"
   region        = var.gcp_region_fra["region"]
   zone          = "a"
-  vpc           = module.gcp_transit_fra.vpc.vpc_id
-  subnet        = module.gcp_transit_fra.vpc.subnets[0].name
+  vpc           = module.gcp_spoke_fra.vpc.vpc_id
+  subnet        = module.gcp_spoke_fra.vpc.subnets[0].name
   instance_size = "e2-standard-8"
   ssh_key       = var.ssh_key
 }
@@ -150,8 +150,8 @@ module "gcp3" {
   name          = "gcp3"
   region        = var.gcp_region_fra["region"]
   zone          = "b"
-  vpc           = module.gcp_transit_fra.vpc.vpc_id
-  subnet        = module.gcp_transit_fra.vpc.subnets[0].name
+  vpc           = module.gcp_spoke_fra.vpc.vpc_id
+  subnet        = module.gcp_spoke_fra.vpc.subnets[0].name
   instance_size = "e2-standard-8"
   ssh_key       = var.ssh_key
 }
@@ -168,8 +168,8 @@ module "gcp4" {
   name          = "gcp4"
   region        = var.gcp_region_fra["region"]
   zone          = "b"
-  vpc           = module.gcp_transit_fra.vpc.vpc_id
-  subnet        = module.gcp_transit_fra.vpc.subnets[0].name
+  vpc           = module.gcp_spoke_fra.vpc.vpc_id
+  subnet        = module.gcp_spoke_fra.vpc.subnets[0].name
   instance_size = "e2-standard-8"
   ssh_key       = var.ssh_key
 }
@@ -180,7 +180,7 @@ resource "aws_route53_record" "gcp4" {
   ttl     = "1"
   records = [module.gcp4.vm.network_interface[0].network_ip]
 }
- */
+
 
 
 ## Azure Clients
