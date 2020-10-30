@@ -1,6 +1,5 @@
 ####
 ## LH POC
-####
 # Deploy Aviatrix Transit and Spoke VPCs in GCP region Frankfurt
 ####
 module "gcp_transit_fra" {
@@ -8,28 +7,26 @@ module "gcp_transit_fra" {
   version = "2.0.0"
 
   name          = "gcp-trans"
-  cidr          = cidrsubnet(var.gcp_region_fra["cidr"], 1, 0)
+  cidr          = cidrsubnet(var.gcp_region_fra["cidr"], 6, 0)
   region        = var.gcp_region_fra["region"]
   account       = var.gcp_account_name
   instance_size = "n1-highcpu-8"
   az1           = "a"
   az2           = "b"
   insane_mode   = true
-  #ha_gw         = true
 }
-/* module "gcp_spoke_fra" {
+module "gcp_spoke_fra" {
   source        = "git::https://github.com/fkhademi/terraform-aviatrix-gcp-spoke.git"
   name          = var.gcp_region_fra["name"]
   account       = var.gcp_account_name
-  cidr          = cidrsubnet(var.gcp_region_fra["cidr"], 1, 1)
+  cidr          = cidrsubnet(var.gcp_region_fra["cidr"], 6, 1)
   region        = var.gcp_region_fra["region"]
   transit_gw    = module.gcp_transit_fra.transit_gateway.gw_name
   instance_size = "n1-highcpu-8"
   az1           = "a"
   az2           = "b"
-  #insane_mode   = true
-  #ha_gw = false
-} */
+  insane_mode   = true
+}
 ####
 # Deploy Aviatrix Transit and Spoke VPCs in Azure region Frankfurt
 ####
@@ -43,15 +40,14 @@ module "transit_azure_fra" {
   version = "2.0.0"
 
   name                  = var.azure_region_fra["name"]
-  cidr                  = cidrsubnet(var.azure_region_fra["cidr"], 1, 0)
+  cidr                  = cidrsubnet(var.azure_region_fra["cidr"], 6, 0)
   region                = var.azure_region_fra["region"]
   account               = var.azure_account_name
   instance_size         = "Standard_D4_v2"
   learned_cidr_approval = true
   insane_mode   = true
-  #insane_mode   = true
 }
-/* data "azurerm_subnet" "spoke_azure_fra" {
+data "azurerm_subnet" "spoke_azure_fra" {
   name                 = module.spoke_azure_fra.vnet.subnets[3].name
   virtual_network_name = module.spoke_azure_fra.vnet.name
   resource_group_name  = split(":", module.spoke_azure_fra.vnet.vpc_id)[1]
@@ -61,14 +57,13 @@ module "spoke_azure_fra" {
   version = "2.0.0"
 
   name          = var.azure_region_fra["name"]
-  cidr          = cidrsubnet(var.azure_region_fra["cidr"], 1, 1)
+  cidr          = cidrsubnet(var.azure_region_fra["cidr"], 6, 1)
   region        = var.azure_region_fra["region"]
   account       = var.azure_account_name
   transit_gw    = module.transit_azure_fra.transit_gateway.gw_name
   instance_size = "Standard_D4_v2"
-  #insane_mode   = true
 }
- */###
+###
 # Transit Peerings - Will create full mesh transit
 ###
 module "transit-peering" {
@@ -111,26 +106,6 @@ resource "aviatrix_transit_external_device_conn" "home2cloud" {
 ########
 ## Deploy Clients and Servers
 ########
-/* module "gcp" {
-  source = "git::https://github.com/fkhademi/terraform-gcp-instance-module.git"
-
-  name          = "gcp"
-  region        = var.gcp_region_fra["region"]
-  zone          = "a"
-  vpc           = module.gcp_spoke_fra.vpc.vpc_id
-  subnet        = module.gcp_spoke_fra.vpc.subnets[0].name
-  #vpc           = module.gcp_spoke_fra.vpc.vpc_id
-  #subnet        = module.gcp_spoke_fra.vpc.subnets[0].name
-  instance_size = "e2-standard-8"
-  ssh_key       = var.ssh_key
-}
-resource "aws_route53_record" "gcp" {
-  zone_id = data.aws_route53_zone.pub.zone_id
-  name    = "gcp.${data.aws_route53_zone.pub.name}"
-  type    = "A"
-  ttl     = "1"
-  records = [module.gcp.vm.network_interface[0].network_ip]
-} */
 module "gcp1" {
   source = "git::https://github.com/fkhademi/terraform-gcp-instance-module.git"
 
@@ -169,7 +144,6 @@ resource "aws_route53_record" "gcp2" {
   ttl     = "1"
   records = [module.gcp2.vm.network_interface[0].network_ip]
 }
-
 module "gcp3" {
   source = "git::https://github.com/fkhademi/terraform-gcp-instance-module.git"
 
