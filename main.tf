@@ -122,12 +122,12 @@ module "gcp" {
   instance_size = "e2-standard-8"
   ssh_key       = var.ssh_key
 }
-resource "aws_route53_record" "gcp1" {
+resource "aws_route53_record" "gcp" {
   zone_id = data.aws_route53_zone.pub.zone_id
-  name    = "gcp1.${data.aws_route53_zone.pub.name}"
+  name    = "gcp.${data.aws_route53_zone.pub.name}"
   type    = "A"
   ttl     = "1"
-  records = [module.gcp1.vm.network_interface[0].network_ip]
+  records = [module.gcp.vm.network_interface[0].network_ip]
 }
 module "gcp1" {
   source = "git::https://github.com/fkhademi/terraform-gcp-instance-module.git"
