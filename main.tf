@@ -106,7 +106,7 @@ resource "aviatrix_transit_external_device_conn" "home2cloud" {
 ########
 ## Deploy Clients and Servers
 ########
-module "gcp1" {
+/* module "gcp1" {
   source = "git::https://github.com/fkhademi/terraform-gcp-instance-module.git"
 
   name          = "gcp1"
@@ -180,7 +180,7 @@ resource "aws_route53_record" "gcp4" {
   ttl     = "1"
   records = [module.gcp4.vm.network_interface[0].network_ip]
 }
-
+ */
 
 
 ## Azure Clients
