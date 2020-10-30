@@ -10,7 +10,7 @@ module "gcp_transit_fra" {
   cidr          = cidrsubnet(var.gcp_region_fra["cidr"], 6, 0)
   region        = var.gcp_region_fra["region"]
   account       = var.gcp_account_name
-  instance_size = "n1-highcpu-8"
+  instance_size = "n1-highcpu-16"
   az1           = "a"
   az2           = "b"
   insane_mode   = true
@@ -22,7 +22,7 @@ module "gcp_spoke_fra" {
   cidr          = cidrsubnet(var.gcp_region_fra["cidr"], 6, 1)
   region        = var.gcp_region_fra["region"]
   transit_gw    = module.gcp_transit_fra.transit_gateway.gw_name
-  instance_size = "n1-highcpu-8"
+  instance_size = "n1-highcpu-16"
   az1           = "a"
   az2           = "b"
   insane_mode   = true
