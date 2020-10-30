@@ -14,9 +14,10 @@ module "gcp_transit_fra" {
   instance_size = "n1-highcpu-8"
   az1           = "a"
   az2           = "b"
+  insane_mode   = true
   #ha_gw         = true
 }
-module "gcp_spoke_fra" {
+/* module "gcp_spoke_fra" {
   source        = "git::https://github.com/fkhademi/terraform-aviatrix-gcp-spoke.git"
   name          = var.gcp_region_fra["name"]
   account       = var.gcp_account_name
@@ -24,11 +25,11 @@ module "gcp_spoke_fra" {
   region        = var.gcp_region_fra["region"]
   transit_gw    = module.gcp_transit_fra.transit_gateway.gw_name
   instance_size = "n1-highcpu-8"
-  #az1           = "a"
-  #az2           = "b"
+  az1           = "a"
+  az2           = "b"
   #insane_mode   = true
-  ha_gw = false
-}
+  #ha_gw = false
+} */
 ####
 # Deploy Aviatrix Transit and Spoke VPCs in Azure region Frankfurt
 ####
@@ -47,6 +48,7 @@ module "transit_azure_fra" {
   account               = var.azure_account_name
   instance_size         = "Standard_D4_v2"
   learned_cidr_approval = true
+  insane_mode   = true
   #insane_mode   = true
 }
 /* data "azurerm_subnet" "spoke_azure_fra" {
@@ -109,7 +111,7 @@ resource "aviatrix_transit_external_device_conn" "home2cloud" {
 ########
 ## Deploy Clients and Servers
 ########
-module "gcp" {
+/* module "gcp" {
   source = "git::https://github.com/fkhademi/terraform-gcp-instance-module.git"
 
   name          = "gcp"
@@ -128,7 +130,7 @@ resource "aws_route53_record" "gcp" {
   type    = "A"
   ttl     = "1"
   records = [module.gcp.vm.network_interface[0].network_ip]
-}
+} */
 module "gcp1" {
   source = "git::https://github.com/fkhademi/terraform-gcp-instance-module.git"
 
