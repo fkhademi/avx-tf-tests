@@ -45,6 +45,16 @@ data "azurerm_subnet" "transit_azure_fra2" {
   virtual_network_name = module.transit_azure_fra.vpc.name
   resource_group_name  = split(":", module.transit_azure_fra.vpc.vpc_id)[1]
 }
+data "azurerm_subnet" "spoke_azure_fra1" {
+  name                 = module.spoke_azure_fra.vnet.subnets[1].name
+  virtual_network_name = module.spoke_azure_fra.vnet.name
+  resource_group_name  = split(":", module.spoke_azure_fra.vnet.vpc_id)[1]
+}
+data "azurerm_subnet" "spoke_azure_fra2" {
+  name                 = module.spoke_azure_fra.vnet.subnets[3].name
+  virtual_network_name = module.spoke_azure_fra.vnet.name
+  resource_group_name  = split(":", module.spoke_azure_fra.vnet.vpc_id)[1]
+}
 module "transit_azure_fra" {
   source  = "terraform-aviatrix-modules/azure-transit/aviatrix"
   version = "2.0.0"
@@ -57,16 +67,7 @@ module "transit_azure_fra" {
   learned_cidr_approval = true
   insane_mode   = true
 }
-data "azurerm_subnet" "spoke_azure_fra1" {
-  name                 = module.spoke_azure_fra.vnet.subnets[1].name
-  virtual_network_name = module.spoke_azure_fra.vnet.name
-  resource_group_name  = split(":", module.spoke_azure_fra.vnet.vpc_id)[1]
-}
-data "azurerm_subnet" "spoke_azure_fra2 {
-  name                 = module.spoke_azure_fra.vnet.subnets[3].name
-  virtual_network_name = module.spoke_azure_fra.vnet.name
-  resource_group_name  = split(":", module.spoke_azure_fra.vnet.vpc_id)[1]
-}
+
 module "spoke_azure_fra" {
   source  = "terraform-aviatrix-modules/azure-spoke/aviatrix"
   version = "2.0.0"
