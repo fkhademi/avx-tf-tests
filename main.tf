@@ -265,8 +265,8 @@ module "azure5" {
 
   name          = "azure5"
   region        = var.azure_region_fra["region"]
-  rg            = split(":", module.spoke_azure_fra.vpc.vpc_id)[1]
-  vnet          = module.spoke_azure_fra.vpc.name
+  rg            = split(":", module.spoke_azure_fra.vnet.vpc_id)[1]
+  vnet          = module.spoke_azure_fra.vnet.name
   subnet        = data.azurerm_subnet.spoke_azure_fra.id
   #rg            = split(":", module.spoke_azure_fra.vnet.vpc_id)[1]
   #vnet          = module.spoke_azure_fra.vnet.name
@@ -286,8 +286,8 @@ module "azure6" {
 
   name          = "azure6"
   region        = var.azure_region_fra["region"]
-  rg            = split(":", module.spoke_azure_fra.vpc.vpc_id)[1]
-  vnet          = module.spoke_azure_fra.vpc.name
+  rg            = split(":", module.spoke_azure_fra.vnet.vpc_id)[1]
+  vnet          = module.spoke_azure_fra.vnet.name
   subnet        = data.azurerm_subnet.spoke_azure_fra.id
   instance_size = "Standard_D4_v2"
   ssh_key       = var.ssh_key
@@ -304,8 +304,8 @@ module "azure7" {
 
   name          = "azure7"
   region        = var.azure_region_fra["region"]
-  rg            = split(":", module.spoke_azure_fra.vpc.vpc_id)[1]
-  vnet          = module.spoke_azure_fra.vpc.name
+  rg            = split(":", module.spoke_azure_fra.vnet.vpc_id)[1]
+  vnet          = module.spoke_azure_fra.vnet.name
   subnet        = data.azurerm_subnet.spoke_azure_fra.id
   instance_size = "Standard_D4_v2"
   ssh_key       = var.ssh_key
@@ -322,8 +322,8 @@ module "azure8" {
 
   name          = "azure8"
   region        = var.azure_region_fra["region"]
-  rg            = split(":", module.spoke_azure_fra.vpc.vpc_id)[1]
-  vnet          = module.spoke_azure_fra.vpc.name
+  rg            = split(":", module.spoke_azure_fra.vnet.vpc_id)[1]
+  vnet          = module.spoke_azure_fra.vnet.name
   subnet        = data.azurerm_subnet.spoke_azure_fra.id
   instance_size = "Standard_D4_v2"
   ssh_key       = var.ssh_key
