@@ -33,7 +33,7 @@ module "gcp_spoke_fra" {
 # Deploy Aviatrix Transit and Spoke VPCs in Azure region Frankfurt
 ####
 data "azurerm_subnet" "transit_azure_fra" {
-  name                 = module.transit_azure_fra.vpc.subnets[3].name
+  name                 = module.transit_azure_fra.vpc.subnets[0].name
   virtual_network_name = module.transit_azure_fra.vpc.name
   resource_group_name  = split(":", module.transit_azure_fra.vpc.vpc_id)[1]
 }
