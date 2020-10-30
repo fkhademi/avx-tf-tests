@@ -43,7 +43,7 @@ module "transit_azure_fra" {
   cidr                  = cidrsubnet(var.azure_region_fra["cidr"], 6, 0)
   region                = var.azure_region_fra["region"]
   account               = var.azure_account_name
-  instance_size         = "Standard_D4_v2"
+  instance_size         = "Standard_D5_v2"
   learned_cidr_approval = true
   insane_mode   = true
 }
@@ -61,7 +61,7 @@ module "spoke_azure_fra" {
   region        = var.azure_region_fra["region"]
   account       = var.azure_account_name
   transit_gw    = module.transit_azure_fra.transit_gateway.gw_name
-  instance_size = "Standard_D4_v2"
+  instance_size = "Standard_D5_v2"
 }
 ###
 # Transit Peerings - Will create full mesh transit
