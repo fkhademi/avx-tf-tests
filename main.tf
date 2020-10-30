@@ -16,7 +16,7 @@ module "gcp_transit_fra" {
   az2           = "b"
   #ha_gw         = true
 }
-/* module "gcp_spoke_fra" {
+module "gcp_spoke_fra" {
   source        = "git::https://github.com/fkhademi/terraform-aviatrix-gcp-spoke.git"
   name          = var.gcp_region_fra["name"]
   account       = var.gcp_account_name
@@ -24,11 +24,12 @@ module "gcp_transit_fra" {
   region        = var.gcp_region_fra["region"]
   transit_gw    = module.gcp_transit_fra.transit_gateway.gw_name
   instance_size = "n1-highcpu-8"
-  az1           = "a"
-  az2           = "b"
+  #az1           = "a"
+  #az2           = "b"
   #insane_mode   = true
+  ha_gw = false
 }
- */####
+####
 # Deploy Aviatrix Transit and Spoke VPCs in Azure region Frankfurt
 ####
 data "azurerm_subnet" "transit_azure_fra" {
