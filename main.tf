@@ -100,8 +100,8 @@ resource "aviatrix_transit_external_device_conn" "home2cloud" {
   bgp_remote_as_num  = "65000"
   remote_gateway_ip  = data.dns_a_record_set.fqdn.addrs[0]
   pre_shared_key     = "frey123frey"
-  local_tunnel_cidr  = "169.254.69.242/30, 169.254.70.242/30"
-  remote_tunnel_cidr = "169.254.69.241/30, 169.254.70.241/30"
+  local_tunnel_cidr  = "169.254.69.242/30,169.254.70.242/30"
+  remote_tunnel_cidr = "169.254.69.241/30,169.254.70.241/30"
 }
 ########
 ## Deploy Clients and Servers
