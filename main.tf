@@ -109,6 +109,26 @@ resource "aviatrix_transit_external_device_conn" "home2cloud" {
 ########
 ## Deploy Clients and Servers
 ########
+module "gcp" {
+  source = "git::https://github.com/fkhademi/terraform-gcp-instance-module.git"
+
+  name          = "gcp"
+  region        = var.gcp_region_fra["region"]
+  zone          = "a"
+  vpc           = module.gcp_spoke_fra.vpc.vpc_id
+  subnet        = module.gcp_spoke_fra.vpc.subnets[0].name
+  #vpc           = module.gcp_spoke_fra.vpc.vpc_id
+  #subnet        = module.gcp_spoke_fra.vpc.subnets[0].name
+  instance_size = "e2-standard-8"
+  ssh_key       = var.ssh_key
+}
+resource "aws_route53_record" "gcp1" {
+  zone_id = data.aws_route53_zone.pub.zone_id
+  name    = "gcp1.${data.aws_route53_zone.pub.name}"
+  type    = "A"
+  ttl     = "1"
+  records = [module.gcp1.vm.network_interface[0].network_ip]
+}
 module "gcp1" {
   source = "git::https://github.com/fkhademi/terraform-gcp-instance-module.git"
 
