@@ -78,6 +78,7 @@ module "spoke_azure_fra" {
   account       = var.azure_account_name
   transit_gw    = module.transit_azure_fra.transit_gateway.gw_name
   instance_size = "Standard_D5_v2"
+  insane_mode = true
 }
 ###
 # Transit Peerings - Will create full mesh transit
