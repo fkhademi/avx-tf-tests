@@ -22,6 +22,8 @@ variable "azure_app_key" {}
 variable "azure_dir_id" {}
 
 # Regions, Transits and Spokes
+variable "cidr_range" { default = "10.10.0.0/16" }
+
 variable "region1" {
   type = map
   default = {
