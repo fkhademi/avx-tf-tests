@@ -5,15 +5,16 @@ module "transit-peering" {
   source  = "terraform-aviatrix-modules/mc-transit-peering/aviatrix"
   version = "1.0.0"
 
-  transit_gateways = [module.transit_gcp_fra.transit_gateway.gw_name, module.transit_azure_fra.transit_gateway.gw_name, module.transit_gcp_sin.transit_gateway.gw_name, module.transit_azure_sin.transit_gateway.gw_name]
+#  transit_gateways = [module.transit_gcp_fra.transit_gateway.gw_name, module.transit_azure_fra.transit_gateway.gw_name, module.transit_gcp_sin.transit_gateway.gw_name, module.transit_azure_sin.transit_gateway.gw_name]
+  transit_gateways = [module.transit_gcp_sin.transit_gateway.gw_name, module.transit_azure_sin.transit_gateway.gw_name]
 }
 #########
 ## S2C
 #########
 resource "aviatrix_transit_external_device_conn" "home2cloud" {
-  vpc_id             = module.transit_azure_fra.vpc.vpc_id
+  vpc_id             = module.transit_azure_sin.vpc.vpc_id
   connection_name    = "DC1"
-  gw_name            = module.transit_azure_fra.transit_gateway.gw_name
+  gw_name            = module.transit_azure_sin.transit_gateway.gw_name
   connection_type    = "bgp"
   bgp_local_as_num   = "65001"
   bgp_remote_as_num  = "65000"
