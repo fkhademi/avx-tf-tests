@@ -13,7 +13,6 @@ module "transit_gcp_fra" {
   az2           = "b"
   insane_mode   = true
 }
-
 module "spoke_gcp_fra" {
   source  = "terraform-aviatrix-modules/gcp-spoke/aviatrix"
   version = "2.0.1"
@@ -28,7 +27,7 @@ module "spoke_gcp_fra" {
   az2           = "b"
   insane_mode   = true
 }
-
+## IPERF CLIENTS ##
 module "gcp1" {
   source = "git::https://github.com/fkhademi/terraform-gcp-instance-module.git"
 
@@ -39,13 +38,6 @@ module "gcp1" {
   subnet        = module.spoke_gcp_fra.vpc.subnets[0].name
   instance_size = "e2-standard-8"
   ssh_key       = var.ssh_key
-}
-resource "aws_route53_record" "gcp1" {
-  zone_id = data.aws_route53_zone.pub.zone_id
-  name    = "gcp1.${data.aws_route53_zone.pub.name}"
-  type    = "A"
-  ttl     = "1"
-  records = [module.gcp1.vm.network_interface[0].network_ip]
 }
 module "gcp2" {
   source = "git::https://github.com/fkhademi/terraform-gcp-instance-module.git"
@@ -58,13 +50,6 @@ module "gcp2" {
   instance_size = "e2-standard-8"
   ssh_key       = var.ssh_key
 }
-resource "aws_route53_record" "gcp2" {
-  zone_id = data.aws_route53_zone.pub.zone_id
-  name    = "gcp2.${data.aws_route53_zone.pub.name}"
-  type    = "A"
-  ttl     = "1"
-  records = [module.gcp2.vm.network_interface[0].network_ip]
-}
 module "gcp3" {
   source = "git::https://github.com/fkhademi/terraform-gcp-instance-module.git"
 
@@ -76,13 +61,6 @@ module "gcp3" {
   instance_size = "e2-standard-8"
   ssh_key       = var.ssh_key
 }
-resource "aws_route53_record" "gcp3" {
-  zone_id = data.aws_route53_zone.pub.zone_id
-  name    = "gcp3.${data.aws_route53_zone.pub.name}"
-  type    = "A"
-  ttl     = "1"
-  records = [module.gcp3.vm.network_interface[0].network_ip]
-}
 module "gcp4" {
   source = "git::https://github.com/fkhademi/terraform-gcp-instance-module.git"
 
@@ -93,6 +71,28 @@ module "gcp4" {
   subnet        = module.spoke_gcp_fra.vpc.subnets[0].name
   instance_size = "e2-standard-8"
   ssh_key       = var.ssh_key
+}
+## DNS RECORDS ##
+resource "aws_route53_record" "gcp1" {
+  zone_id = data.aws_route53_zone.pub.zone_id
+  name    = "gcp1.${data.aws_route53_zone.pub.name}"
+  type    = "A"
+  ttl     = "1"
+  records = [module.gcp1.vm.network_interface[0].network_ip]
+}
+resource "aws_route53_record" "gcp2" {
+  zone_id = data.aws_route53_zone.pub.zone_id
+  name    = "gcp2.${data.aws_route53_zone.pub.name}"
+  type    = "A"
+  ttl     = "1"
+  records = [module.gcp2.vm.network_interface[0].network_ip]
+}
+resource "aws_route53_record" "gcp3" {
+  zone_id = data.aws_route53_zone.pub.zone_id
+  name    = "gcp3.${data.aws_route53_zone.pub.name}"
+  type    = "A"
+  ttl     = "1"
+  records = [module.gcp3.vm.network_interface[0].network_ip]
 }
 resource "aws_route53_record" "gcp4" {
   zone_id = data.aws_route53_zone.pub.zone_id

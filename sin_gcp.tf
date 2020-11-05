@@ -27,7 +27,7 @@ module "spoke_gcp_sin" {
   az2           = "b"
   insane_mode   = true
 }
-
+## IPERF CLIENTS ##
 module "gcp5" {
   source = "git::https://github.com/fkhademi/terraform-gcp-instance-module.git"
 
@@ -72,6 +72,7 @@ module "gcp8" {
   instance_size = "e2-standard-8"
   ssh_key       = var.ssh_key
 }
+## DNS RECORDS ##
 resource "aws_route53_record" "gcp5" {
   zone_id = data.aws_route53_zone.pub.zone_id
   name    = "gcp5.${data.aws_route53_zone.pub.name}"

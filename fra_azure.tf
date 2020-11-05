@@ -50,7 +50,7 @@ resource "aviatrix_vpn_user" "lhs-vpn-user" {
   vpc_id    = module.spoke_azure_fra_vpn.vnet.vpc_id
 }
 
-#######
+## IPERF CLIENTS ##
 module "azure5" {
   source = "git::https://github.com/fkhademi/terraform-azure-instance-module.git"
 
@@ -61,13 +61,6 @@ module "azure5" {
   subnet        = data.azurerm_subnet.spoke_azure_fra1.id
   instance_size = "Standard_D4_v2"
   ssh_key       = var.ssh_key
-}
-resource "aws_route53_record" "azure5" {
-  zone_id = data.aws_route53_zone.pub.zone_id
-  name    = "azure5.${data.aws_route53_zone.pub.name}"
-  type    = "A"
-  ttl     = "1"
-  records = [module.azure5.nic.private_ip_address]
 }
 module "azure6" {
   source = "git::https://github.com/fkhademi/terraform-azure-instance-module.git"
@@ -80,13 +73,6 @@ module "azure6" {
   instance_size = "Standard_D4_v2"
   ssh_key       = var.ssh_key
 }
-resource "aws_route53_record" "azure6" {
-  zone_id = data.aws_route53_zone.pub.zone_id
-  name    = "azure6.${data.aws_route53_zone.pub.name}"
-  type    = "A"
-  ttl     = "1"
-  records = [module.azure6.nic.private_ip_address]
-}
 module "azure7" {
   source = "git::https://github.com/fkhademi/terraform-azure-instance-module.git"
 
@@ -98,13 +84,6 @@ module "azure7" {
   instance_size = "Standard_D4_v2"
   ssh_key       = var.ssh_key
 }
-resource "aws_route53_record" "azure7" {
-  zone_id = data.aws_route53_zone.pub.zone_id
-  name    = "azure7.${data.aws_route53_zone.pub.name}"
-  type    = "A"
-  ttl     = "1"
-  records = [module.azure7.nic.private_ip_address]
-}
 module "azure8" {
   source = "git::https://github.com/fkhademi/terraform-azure-instance-module.git"
 
@@ -115,6 +94,28 @@ module "azure8" {
   subnet        = data.azurerm_subnet.spoke_azure_fra2.id
   instance_size = "Standard_D4_v2"
   ssh_key       = var.ssh_key
+}
+## DNS RECORDS ##
+resource "aws_route53_record" "azure5" {
+  zone_id = data.aws_route53_zone.pub.zone_id
+  name    = "azure5.${data.aws_route53_zone.pub.name}"
+  type    = "A"
+  ttl     = "1"
+  records = [module.azure5.nic.private_ip_address]
+}
+resource "aws_route53_record" "azure6" {
+  zone_id = data.aws_route53_zone.pub.zone_id
+  name    = "azure6.${data.aws_route53_zone.pub.name}"
+  type    = "A"
+  ttl     = "1"
+  records = [module.azure6.nic.private_ip_address]
+}
+resource "aws_route53_record" "azure7" {
+  zone_id = data.aws_route53_zone.pub.zone_id
+  name    = "azure7.${data.aws_route53_zone.pub.name}"
+  type    = "A"
+  ttl     = "1"
+  records = [module.azure7.nic.private_ip_address]
 }
 resource "aws_route53_record" "azure8" {
   zone_id = data.aws_route53_zone.pub.zone_id
