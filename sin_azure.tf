@@ -26,12 +26,12 @@ module "spoke_azure_sin" {
   single_ip_snat = true
 }
 data "azurerm_subnet" "spoke_azure_sin1" {
-  name                 = module.spoke_azure_sin.vnet.subnets[1].name
+  name                 = module.spoke_azure_sin.vnet.subnets[3].name
   virtual_network_name = module.spoke_azure_sin.vnet.name
   resource_group_name  = split(":", module.spoke_azure_sin.vnet.vpc_id)[1]
 }
 data "azurerm_subnet" "spoke_azure_sin2" {
-  name                 = module.spoke_azure_sin.vnet.subnets[2].name
+  name                 = module.spoke_azure_sin.vnet.subnets[4].name
   virtual_network_name = module.spoke_azure_sin.vnet.name
   resource_group_name  = split(":", module.spoke_azure_sin.vnet.vpc_id)[1]
 }
