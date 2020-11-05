@@ -56,7 +56,7 @@ module "gcp3" {
 
   name          = "gcp3"
   region        = "europe-west3"
-  zone          = "c"
+  zone          = "b"
   vpc           = module.spoke_gcp_fra.vpc.vpc_id
   subnet        = module.spoke_gcp_fra.vpc.subnets[0].name
   instance_size = "n1-highcpu-4"
@@ -67,7 +67,7 @@ module "gcp4" {
 
   name          = "gcp4"
   region        = "europe-west3"
-  zone          = "c"
+  zone          = "b"
   vpc           = module.spoke_gcp_fra.vpc.vpc_id
   subnet        = module.spoke_gcp_fra.vpc.subnets[0].name
   instance_size = "n1-highcpu-4"
@@ -101,4 +101,41 @@ resource "aws_route53_record" "gcp4" {
   type    = "A"
   ttl     = "1"
   records = [module.gcp4.vm.network_interface[0].network_ip]
+}
+
+module "gcp9" {
+  source = "git::https://github.com/fkhademi/terraform-gcp-instance-module.git"
+
+  name          = "gcp9"
+  region        = "europe-west3"
+  zone          = "a"
+  vpc           = module.spoke_gcp_fra.vpc.vpc_id
+  subnet        = module.spoke_gcp_fra.vpc.subnets[0].name
+  instance_size = "n1-highcpu-4"
+  ssh_key       = var.ssh_key
+}
+module "gcp10" {
+  source = "git::https://github.com/fkhademi/terraform-gcp-instance-module.git"
+
+  name          = "gcp10"
+  region        = "europe-west3"
+  zone          = "b"
+  vpc           = module.spoke_gcp_fra.vpc.vpc_id
+  subnet        = module.spoke_gcp_fra.vpc.subnets[0].name
+  instance_size = "n1-highcpu-4"
+  ssh_key       = var.ssh_key
+}
+resource "aws_route53_record" "gcp9" {
+  zone_id = data.aws_route53_zone.pub.zone_id
+  name    = "gcp0.${data.aws_route53_zone.pub.name}"
+  type    = "A"
+  ttl     = "1"
+  records = [module.gcp0.vm.network_interface[0].network_ip]
+}
+resource "aws_route53_record" "gcp10" {
+  zone_id = data.aws_route53_zone.pub.zone_id
+  name    = "gcp10.${data.aws_route53_zone.pub.name}"
+  type    = "A"
+  ttl     = "1"
+  records = [module.gcp10.vm.network_interface[0].network_ip]
 }
