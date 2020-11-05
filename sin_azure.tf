@@ -13,9 +13,9 @@ module "transit_azure_sin" {
   insane_mode   = true
 }
 module "spoke_azure_sin" {
-  source  = "terraform-aviatrix-modules/azure-spoke/aviatrix"
-  version = "2.0.0"
-
+  #source  = "terraform-aviatrix-modules/azure-spoke/aviatrix"
+  #version = "2.0.0"
+  source        = "git::https://github.com/fkhademi/terraform-aviatrix-azure-spoke.git"
   name          = "spoke-azure-sin"
   cidr          = cidrsubnet(var.cidr_range, 7, 31)
   region        = "South East Asia"
@@ -23,6 +23,7 @@ module "spoke_azure_sin" {
   transit_gw    = module.transit_azure_sin.transit_gateway.gw_name
   instance_size = "Standard_D5_v2"
   insane_mode = true
+  single_ip_nat = true
 }
 data "azurerm_subnet" "spoke_azure_sin1" {
   name                 = module.spoke_azure_sin.vnet.subnets[1].name

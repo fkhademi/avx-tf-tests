@@ -5,8 +5,8 @@ module "transit-peering" {
   source  = "terraform-aviatrix-modules/mc-transit-peering/aviatrix"
   version = "1.0.0"
 
-#  transit_gateways = [module.transit_gcp_fra.transit_gateway.gw_name, module.transit_azure_fra.transit_gateway.gw_name, module.transit_gcp_sin.transit_gateway.gw_name, module.transit_azure_sin.transit_gateway.gw_name]
-  transit_gateways = [module.transit_gcp_sin.transit_gateway.gw_name, module.transit_azure_sin.transit_gateway.gw_name]
+  transit_gateways = [module.transit_gcp_fra.transit_gateway.gw_name, module.transit_azure_fra.transit_gateway.gw_name, module.transit_gcp_sin.transit_gateway.gw_name, module.transit_azure_sin.transit_gateway.gw_name]
+  #transit_gateways = [module.transit_gcp_sin.transit_gateway.gw_name, module.transit_azure_sin.transit_gateway.gw_name]
 }
 #########
 ## S2C

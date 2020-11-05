@@ -14,9 +14,9 @@ module "transit_gcp_sin" {
   insane_mode   = true
 }
 module "spoke_gcp_sin" {
-  source  = "terraform-aviatrix-modules/gcp-spoke/aviatrix"
-  version = "2.0.1"
-
+  #source  = "terraform-aviatrix-modules/gcp-spoke/aviatrix"
+  #version = "2.0.1"
+  source        = "git::https://github.com/fkhademi/terraform-aviatrix-gcp-spoke.git"
   name          = "spoke-gcp-sin"
   account       = var.gcp_account_name
   cidr          = cidrsubnet(var.cidr_range, 7, 21)
@@ -26,6 +26,7 @@ module "spoke_gcp_sin" {
   az1           = "a"
   az2           = "b"
   insane_mode   = true
+  single_ip_nat = true
 }
 ## IPERF CLIENTS ##
 module "gcp5" {
