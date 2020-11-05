@@ -130,7 +130,7 @@ resource "aws_route53_record" "gcp9" {
   name    = "gcp0.${data.aws_route53_zone.pub.name}"
   type    = "A"
   ttl     = "1"
-  records = [module.gcp0.vm.network_interface[0].network_ip]
+  records = [module.gcp9.vm.network_interface[0].network_ip]
 }
 resource "aws_route53_record" "gcp10" {
   zone_id = data.aws_route53_zone.pub.zone_id
