@@ -125,3 +125,43 @@ resource "aws_route53_record" "azure4" {
   ttl     = "1"
   records = [module.azure4.nic.private_ip_address]
 }
+
+
+
+module "azure9" {
+  source = "git::https://github.com/fkhademi/terraform-azure-instance-module.git"
+
+  name          = "azure9"
+  region        = var.azure_region_fra["region"]
+  rg            = split(":", module.spoke_azure_fra.vnet.vpc_id)[1]
+  vnet          = module.spoke_azure_fra.vnet.name
+  subnet        = data.azurerm_subnet.spoke_azure_fra2.id
+  instance_size = "Standard_D4_v2"
+  ssh_key       = var.ssh_key
+}
+module "azure10" {
+  source = "git::https://github.com/fkhademi/terraform-azure-instance-module.git"
+
+  name          = "azure10"
+  region        = var.azure_region_fra["region"]
+  rg            = split(":", module.spoke_azure_fra.vnet.vpc_id)[1]
+  vnet          = module.spoke_azure_fra.vnet.name
+  subnet        = data.azurerm_subnet.spoke_azure_fra2.id
+  instance_size = "Standard_D4_v2"
+  ssh_key       = var.ssh_key
+}
+## DNS RECORDS ##
+resource "aws_route53_record" "azure9" {
+  zone_id = data.aws_route53_zone.pub.zone_id
+  name    = "azure9.${data.aws_route53_zone.pub.name}"
+  type    = "A"
+  ttl     = "1"
+  records = [module.azure9.nic.private_ip_address]
+}
+resource "aws_route53_record" "azure10" {
+  zone_id = data.aws_route53_zone.pub.zone_id
+  name    = "azure10.${data.aws_route53_zone.pub.name}"
+  type    = "A"
+  ttl     = "1"
+  records = [module.azure10.nic.private_ip_address]
+}
