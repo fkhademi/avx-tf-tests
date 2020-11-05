@@ -16,17 +16,17 @@ module "transit_gcp_sin" {
 module "spoke_gcp_sin" {
   #source  = "terraform-aviatrix-modules/gcp-spoke/aviatrix"
   #version = "2.0.1"
-  source        = "git::https://github.com/fkhademi/terraform-aviatrix-gcp-spoke.git"
-  name          = "spoke-gcp-sin"
-  account       = var.gcp_account_name
-  cidr          = cidrsubnet(var.cidr_range, 7, 21)
-  region        = "asia-southeast1"
-  transit_gw    = module.transit_gcp_sin.transit_gateway.gw_name
-  instance_size = "n1-highcpu-16"
-  az1           = "a"
-  az2           = "b"
-  insane_mode   = true
-  single_ip_nat = true
+  source         = "git::https://github.com/fkhademi/terraform-aviatrix-gcp-spoke.git"
+  name           = "spoke-gcp-sin"
+  account        = var.gcp_account_name
+  cidr           = cidrsubnet(var.cidr_range, 7, 21)
+  region         = "asia-southeast1"
+  transit_gw     = module.transit_gcp_sin.transit_gateway.gw_name
+  instance_size  = "n1-highcpu-16"
+  az1            = "a"
+  az2            = "b"
+  insane_mode    = true
+  single_ip_snat = true
 }
 ## IPERF CLIENTS ##
 module "gcp5" {
