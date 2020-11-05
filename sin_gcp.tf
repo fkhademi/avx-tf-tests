@@ -8,7 +8,7 @@ module "transit_gcp_sin" {
   cidr          = cidrsubnet(var.cidr_range, 7, 20)
   region        = "asia-southeast1"
   account       = var.gcp_account_name
-  instance_size = "n1-highcpu-16"
+  instance_size = "n1-highcpu-4"
   az1           = "a"
   az2           = "b"
   insane_mode   = true
@@ -22,7 +22,7 @@ module "spoke_gcp_sin" {
   cidr           = cidrsubnet(var.cidr_range, 7, 21)
   region         = "asia-southeast1"
   transit_gw     = module.transit_gcp_sin.transit_gateway.gw_name
-  instance_size  = "n1-highcpu-16"
+  instance_size  = "n1-highcpu-4"
   az1            = "a"
   az2            = "b"
   insane_mode    = true
@@ -37,7 +37,7 @@ module "gcp5" {
   zone          = "a"
   vpc           = module.spoke_gcp_sin.vpc.vpc_id
   subnet        = module.spoke_gcp_sin.vpc.subnets[0].name
-  instance_size = "e2-standard-8"
+  instance_size = "n1-highcpu-4"
   ssh_key       = var.ssh_key
 }
 module "gcp6" {
@@ -48,7 +48,7 @@ module "gcp6" {
   zone          = "a"
   vpc           = module.spoke_gcp_sin.vpc.vpc_id
   subnet        = module.spoke_gcp_sin.vpc.subnets[0].name
-  instance_size = "e2-standard-8"
+  instance_size = "n1-highcpu-4"
   ssh_key       = var.ssh_key
 }
 module "gcp7" {
@@ -59,7 +59,7 @@ module "gcp7" {
   zone          = "b"
   vpc           = module.spoke_gcp_sin.vpc.vpc_id
   subnet        = module.spoke_gcp_sin.vpc.subnets[0].name
-  instance_size = "e2-standard-8"
+  instance_size = "n1-highcpu-4"
   ssh_key       = var.ssh_key
 }
 module "gcp8" {
@@ -70,7 +70,7 @@ module "gcp8" {
   zone          = "b"
   vpc           = module.spoke_gcp_sin.vpc.vpc_id
   subnet        = module.spoke_gcp_sin.vpc.subnets[0].name
-  instance_size = "e2-standard-8"
+  instance_size = "n1-highcpu-4"
   ssh_key       = var.ssh_key
 }
 ## DNS RECORDS ##
