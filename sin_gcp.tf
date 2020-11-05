@@ -10,7 +10,7 @@ module "transit_gcp_sin" {
   account       = var.gcp_account_name
   instance_size = "n1-highcpu-4"
   az1           = "a"
-  az2           = "b"
+  az2           = "c"
   insane_mode   = true
 }
 module "spoke_gcp_sin" {
