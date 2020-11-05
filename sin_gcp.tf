@@ -56,7 +56,7 @@ module "gcp7" {
 
   name          = "gcp7"
   region        = "asia-southeast1"
-  zone          = "b"
+  zone          = "c"
   vpc           = module.spoke_gcp_sin.vpc.vpc_id
   subnet        = module.spoke_gcp_sin.vpc.subnets[0].name
   instance_size = "n1-highcpu-4"
@@ -67,7 +67,7 @@ module "gcp8" {
 
   name          = "gcp8"
   region        = "asia-southeast1"
-  zone          = "b"
+  zone          = "c"
   vpc           = module.spoke_gcp_sin.vpc.vpc_id
   subnet        = module.spoke_gcp_sin.vpc.subnets[0].name
   instance_size = "n1-highcpu-4"
