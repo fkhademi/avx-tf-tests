@@ -56,7 +56,7 @@ module "gcp3" {
 
   name          = "gcp3"
   region        = "europe-west3"
-  zone          = "b"
+  zone          = "c"
   vpc           = module.spoke_gcp_fra.vpc.vpc_id
   subnet        = module.spoke_gcp_fra.vpc.subnets[0].name
   instance_size = "n1-highcpu-4"
@@ -67,7 +67,7 @@ module "gcp4" {
 
   name          = "gcp4"
   region        = "europe-west3"
-  zone          = "b"
+  zone          = "c"
   vpc           = module.spoke_gcp_fra.vpc.vpc_id
   subnet        = module.spoke_gcp_fra.vpc.subnets[0].name
   instance_size = "n1-highcpu-4"
