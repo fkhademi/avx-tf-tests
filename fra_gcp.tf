@@ -24,7 +24,7 @@ module "spoke_gcp_fra" {
   transit_gw     = module.transit_gcp_fra.transit_gateway.gw_name
   instance_size  = "n1-highcpu-4"
   az1            = "a"
-  az2            = "b"
+  az2            = "c"
   insane_mode    = true
   single_ip_snat = true
 }
