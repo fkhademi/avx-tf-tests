@@ -5,8 +5,8 @@ module "transit-peering" {
   source  = "terraform-aviatrix-modules/mc-transit-peering/aviatrix"
   version = "1.0.0"
 
-  transit_gateways = [module.transit_gcp_fra.transit_gateway.gw_name, module.transit_azure_fra.transit_gateway.gw_name, module.transit_gcp_sin.transit_gateway.gw_name, module.transit_azure_sin.transit_gateway.gw_name]
-  #transit_gateways = [module.transit_gcp_sin.transit_gateway.gw_name, module.transit_azure_sin.transit_gateway.gw_name]
+  #transit_gateways = [module.transit_gcp_fra.transit_gateway.gw_name, module.transit_azure_fra.transit_gateway.gw_name, module.transit_gcp_sin.transit_gateway.gw_name, module.transit_azure_sin.transit_gateway.gw_name]
+  transit_gateways = [module.transit_gcp_fra.transit_gateway.gw_name, module.transit_azure_fra.transit_gateway.gw_name]
 }
 #########
 ## S2C
@@ -35,3 +35,20 @@ data "aws_route53_zone" "pub" {
   private_zone = false
 }
 
+########
+## Cloud Accounts
+########
+resource "aviatrix_account" "azure" {
+  account_name        = "azure-fk"
+  cloud_type          = 8
+  arm_subscription_id = var.azure_sub_id
+  arm_directory_id    = var.azure_dir_id
+  arm_application_id  = var.azure_app_id
+  arm_application_key = var.azure_app_key
+}
+resource "aviatrix_account" "gcp" {
+  account_name                        = "freyviatrix-sc"
+  cloud_type                          = 4
+  gcloud_project_id                   = var.gcp_project
+  gcloud_project_credentials_filepath = var.gcp_json
+}

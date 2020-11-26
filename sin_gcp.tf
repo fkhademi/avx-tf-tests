@@ -1,4 +1,4 @@
-# Deploy Aviatrix Transit and Spoke VPCs in GCP region Frankfurt
+/* # Deploy Aviatrix Transit and Spoke VPCs in GCP region Frankfurt
 
 module "transit_gcp_sin" {
   source  = "terraform-aviatrix-modules/gcp-transit/aviatrix"
@@ -102,3 +102,4 @@ resource "aws_route53_record" "gcp8" {
   ttl     = "1"
   records = [module.gcp8.vm.network_interface[0].network_ip]
 }
+ */

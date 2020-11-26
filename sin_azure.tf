@@ -1,4 +1,4 @@
-# Deploy Aviatrix Transit and Spoke VPCs in Azure region Singapore
+/* # Deploy Aviatrix Transit and Spoke VPCs in Azure region Singapore
 
 module "transit_azure_sin" {
   source  = "terraform-aviatrix-modules/azure-transit/aviatrix"
@@ -108,4 +108,4 @@ resource "aws_route53_record" "azure8" {
   type    = "A"
   ttl     = "1"
   records = [module.azure8.nic.private_ip_address]
-}
+} */

@@ -7,8 +7,8 @@ module "transit_gcp_fra" {
   name          = "trans-gcp-fra"
   cidr          = cidrsubnet(var.cidr_range, 7, 0)
   region        = "europe-west3"
-  account       = var.gcp_account_name
-  instance_size = "n1-highcpu-4"
+  account       = aviatrix_account.gcp.account_name
+  instance_size = "n1-highcpu-16"
   az1           = "a"
   az2           = "b"
   insane_mode   = true
@@ -18,11 +18,11 @@ module "spoke_gcp_fra" {
   #version = "2.0.1"
   source         = "git::https://github.com/fkhademi/terraform-aviatrix-gcp-spoke.git"
   name           = "spoke-gcp-fra"
-  account        = var.gcp_account_name
+  account        = aviatrix_account.gcp.account_name
   cidr           = cidrsubnet(var.cidr_range, 7, 1)
   region         = "europe-west3"
   transit_gw     = module.transit_gcp_fra.transit_gateway.gw_name
-  instance_size  = "n1-highcpu-4"
+  instance_size  = "n1-highcpu-16"
   az1            = "a"
   az2            = "b"
   insane_mode    = true
