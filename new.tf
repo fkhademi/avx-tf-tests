@@ -38,7 +38,7 @@ data "aws_route53_zone" "pub" {
 ########
 ## Cloud Accounts
 ########
-resource "aviatrix_account" "azure" {
+/* resource "aviatrix_account" "azure" {
   account_name        = "azure-fk"
   cloud_type          = 8
   arm_subscription_id = var.azure_sub_id
@@ -51,4 +51,4 @@ resource "aviatrix_account" "gcp" {
   cloud_type                          = 4
   gcloud_project_id                   = var.gcp_project
   gcloud_project_credentials_filepath = var.gcp_json
-}
+} */

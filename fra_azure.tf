@@ -7,7 +7,7 @@ module "transit_azure_fra" {
   name                  = "trans-azure-fra"
   cidr                  = cidrsubnet(var.cidr_range, 7, 10)
   region                = "Germany West Central"
-  account               = aviatrix_account.azure.account_name
+  account               = var.azure_account_name
   instance_size         = "Standard_D5_v2"
   learned_cidr_approval = true
   insane_mode           = true
@@ -19,7 +19,7 @@ module "spoke_azure_fra" {
   name           = "spoke-azure-fra"
   cidr           = cidrsubnet(var.cidr_range, 7, 11)
   region         = "Germany West Central"
-  account        = aviatrix_account.azure.account_name
+  account        = var.azure_account_name
   transit_gw     = module.transit_azure_fra.transit_gateway.gw_name
   instance_size  = "Standard_D5_v2"
   insane_mode    = true
@@ -40,7 +40,7 @@ data "azurerm_subnet" "spoke_azure_fra2" {
   name          = "azure-vpn"
   cidr          = cidrsubnet(var.cidr_range, 7, 12)
   region        = "Germany West Central"
-  account       = aviatrix_account.azure.account_name
+  account       = var.azure_account_name
   transit_gw    = module.transit_azure_fra.transit_gateway.gw_name
   instance_size = "Standard_B2ms"
   insane_mode   = false
